@@ -1,29 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// const easyedit = require('easyedit')
-const Panel = require('./console-counter');
-
-let counter, n = 0
-
-function count()
-{
-    counter.log(n++)
-}
-
-window.onload = function ()
-{
-    const panel = new Panel({ side: 'top left' })
-    panel.log('top left panel')
-
-    const panel2 = new Panel({ side: 'bottomRight' })
-    panel2.log('bottom right panel<br>With two lines.')
-
-    counter = new Panel({side: 'bottom left', background: 'red'})
-    count()
-    setInterval(count, 250)
-
-    require('./highlight')();
-};
-},{"./console-counter":2,"./highlight":3}],2:[function(require,module,exports){
 /**
  * @file console-counter.js
  * @summary In-browser console to watch changeable values like counters or FPS
@@ -39,7 +14,7 @@ module.exports = class ConsoleCounter
      * @param {object} [options]
      * @param {side} [options.side='rightbottom'] side to place the panel (combination of right/left and bottom/top)
      * @param {string} [options.parent=document.body]
-     * @param {number} [options.padding=7]
+     * @param {number} [options.padding=7px]
      * @param {string} [options.color=white]
      * @param {string} [options.background=rgba(150,150,150,0.5)]
      * @param {string} [options.position=fixed]
@@ -51,7 +26,7 @@ module.exports = class ConsoleCounter
         options = options || {}
         options.side = options.side || 'righbottom'
         options.side.toLowerCase()
-        options.padding = options.padding || 7
+        options.padding = options.padding || '7px'
         options.color = options.color || 'white'
         options.background = options.background || 'rgba(150,150,150,0.5)'
         options.parent = options.parent || document.body
@@ -104,7 +79,31 @@ module.exports = class ConsoleCounter
         this.div.innerHTML += text
     }
 }
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
+const Panel = require('../console-counter');
+
+let counter, n = 0
+
+function count()
+{
+    counter.log(n++)
+}
+
+window.onload = function ()
+{
+    const panel = new Panel({ side: 'top left' })
+    panel.log('top left panel')
+
+    const panel2 = new Panel({ side: 'bottomRight' })
+    panel2.log('bottom right panel<br>With two lines.')
+
+    counter = new Panel({side: 'bottom left', background: 'red'})
+    count()
+    setInterval(count, 250)
+
+    require('./highlight')();
+};
+},{"../console-counter":1,"./highlight":3}],3:[function(require,module,exports){
 // shows the code in the demo
 module.exports = function highlight()
 {
@@ -16953,4 +16952,4 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}]},{},[1]);
+},{}]},{},[2]);
