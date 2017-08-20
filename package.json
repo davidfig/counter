@@ -4,8 +4,8 @@
   "description": "In-browser console to watch changeable values like counters or FPS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "node_modules/.bin/jsdoc2md --template README.hbs debug.js > README.md"
+    "test": "budo docs/code.js:docs/index.js -l -d docs ",
+    "build": "browserify docs/code.js -o docs/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
     "url": "https://github.com/davidfig/debug/issues"
   },
   "homepage": "https://github.com/davidfig/debug#readme",
-  "dependencies": {
+  "devDependencies": {
     "highlight.js": "^9.12.0"
   }
 }

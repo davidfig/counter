@@ -1,5 +1,4 @@
-// const easyedit = require('easyedit')
-const Panel = require('./console-counter');
+const Panel = require('../console-counter');
 
 let counter, n = 0
 
