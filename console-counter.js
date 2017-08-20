@@ -13,7 +13,7 @@ module.exports = class ConsoleCounter
      * @param {object} [options]
      * @param {side} [options.side='rightbottom'] side to place the panel (combination of right/left and bottom/top)
      * @param {string} [options.parent=document.body]
-     * @param {number} [options.padding=7]
+     * @param {number} [options.padding=7px]
      * @param {string} [options.color=white]
      * @param {string} [options.background=rgba(150,150,150,0.5)]
      * @param {string} [options.position=fixed]
@@ -25,7 +25,7 @@ module.exports = class ConsoleCounter
         options = options || {}
         options.side = options.side || 'righbottom'
         options.side.toLowerCase()
-        options.padding = options.padding || 7
+        options.padding = options.padding || '7px'
         options.color = options.color || 'white'
         options.background = options.background || 'rgba(150,150,150,0.5)'
         options.parent = options.parent || document.body
