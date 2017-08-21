@@ -62,19 +62,33 @@ module.exports = class ConsoleCounter
 
     /**
      * replaces the innerHTML of the console
-     * @param {string} text
+     * @param {string|number} text1
+     * @param {string|number} [text2]
+     * @param {string|number} [...textn] any number of arguments
      */
-    log(text)
+    log()
     {
-        this.div.innerHTML = text
+        let s = ''
+        for (let arg of arguments)
+        {
+            s += '<div>' + arg + '</div>'
+        }
+        this.div.innerHTML =  s
     }
 
     /**
      * appends to the innerHTML of the console
-     * @param {string} text
+     * @param {string|number} text1
+     * @param {string|number} [text2]
+     * @param {string|number} [...textn] any number of arguments
      */
-    append(text)
+    append()
     {
-        this.div.innerHTML += text
+        let s = this.div.innerHTML
+        for (let arg of arguments)
+        {
+            s += '<div>' + arg + '</div>'
+        }
+        this.div.innerHTML = s
     }
 }

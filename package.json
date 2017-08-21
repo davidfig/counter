@@ -1,10 +1,10 @@
 {
   "name": "console-counter",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "In-browser console to watch changeable values like counters or FPS",
-  "main": "console-counter.js",
+  "main": "index.js",
   "scripts": {
-    "test": "budo docs/code.js:docs/index.js -l -d docs ",
+    "test": "cd docs && budo code.js:index.js --live",
     "build": "browserify docs/code.js -o docs/index.js"
   },
   "repository": {

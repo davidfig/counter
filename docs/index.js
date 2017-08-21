@@ -1,4 +1,45 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+const Panel = require('..');
+
+let counter, n = 0
+
+function count()
+{
+    counter.log(n, n++)
+}
+
+window.onload = function ()
+{
+    const panel = new Panel({ side: 'top left' })
+    panel.log('top left panel')
+
+    const panel2 = new Panel({ side: 'bottomRight' })
+    panel2.log('bottom right panel', 'With two lines.')
+
+    counter = new Panel({side: 'bottom left', background: 'red'})
+    count()
+    setInterval(count, 250)
+
+    require('./highlight')();
+};
+},{"..":3,"./highlight":2}],2:[function(require,module,exports){
+// shows the code in the demo
+module.exports = function highlight()
+{
+    var client = new XMLHttpRequest();
+    client.open('GET', 'code.js');
+    client.onreadystatechange = function()
+    {
+        var code = document.getElementById('code');
+        code.innerHTML = client.responseText;
+        require('highlight.js').highlightBlock(code);
+    };
+    client.send();
+};
+
+// for eslint
+/* globals window, XMLHttpRequest, document */
+},{"highlight.js":5}],3:[function(require,module,exports){
 /**
  * @file console-counter.js
  * @summary In-browser console to watch changeable values like counters or FPS
@@ -63,64 +104,33 @@ module.exports = class ConsoleCounter
 
     /**
      * replaces the innerHTML of the console
-     * @param {string} text
+     * @param {string|number} text1
+     * @param {string|number} [text2]
+     * @param {string|number} [...textn] any number of arguments
      */
-    log(text)
+    log()
     {
-        this.div.innerHTML = text
+        for (let arg of arguments)
+        {
+            this.div.innerHTML = '<div>' + arg + '</div>'
+        }
     }
 
     /**
      * appends to the innerHTML of the console
-     * @param {string} text
+     * @param {string|number} text1
+     * @param {string|number} [text2]
+     * @param {string|number} [...textn] any number of arguments
      */
-    append(text)
+    append()
     {
-        this.div.innerHTML += text
+        for (let arg of arguments)
+        {
+            this.div.innerHTML += '<div>' + arg + '</div>'
+        }
     }
 }
-},{}],2:[function(require,module,exports){
-const Panel = require('../console-counter');
-
-let counter, n = 0
-
-function count()
-{
-    counter.log(n++)
-}
-
-window.onload = function ()
-{
-    const panel = new Panel({ side: 'top left' })
-    panel.log('top left panel')
-
-    const panel2 = new Panel({ side: 'bottomRight' })
-    panel2.log('bottom right panel<br>With two lines.')
-
-    counter = new Panel({side: 'bottom left', background: 'red'})
-    count()
-    setInterval(count, 250)
-
-    require('./highlight')();
-};
-},{"../console-counter":1,"./highlight":3}],3:[function(require,module,exports){
-// shows the code in the demo
-module.exports = function highlight()
-{
-    var client = new XMLHttpRequest();
-    client.open('GET', 'code.js');
-    client.onreadystatechange = function()
-    {
-        var code = document.getElementById('code');
-        code.innerHTML = client.responseText;
-        require('highlight.js').highlightBlock(code);
-    };
-    client.send();
-};
-
-// for eslint
-/* globals window, XMLHttpRequest, document */
-},{"highlight.js":5}],4:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /*
 Syntax highlighting with language autodetection.
 https://highlightjs.org/
@@ -16952,4 +16962,4 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}]},{},[2]);
+},{}]},{},[1]);

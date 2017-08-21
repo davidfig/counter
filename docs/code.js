@@ -1,10 +1,10 @@
-const Panel = require('../console-counter');
+const Panel = require('..');
 
 let counter, n = 0
 
 function count()
 {
-    counter.log(n++)
+    counter.log(n++, n)
 }
 
 window.onload = function ()
@@ -13,7 +13,7 @@ window.onload = function ()
     panel.log('top left panel')
 
     const panel2 = new Panel({ side: 'bottomRight' })
-    panel2.log('bottom right panel<br>With two lines.')
+    panel2.log('bottom right panel', 'With two lines.')
 
     counter = new Panel({side: 'bottom left', background: 'red'})
     count()

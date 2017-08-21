@@ -40,15 +40,19 @@ https://davidfig.github.io/console-counter/
 
     /**
     * replaces the innerHTML of the console
-    * @param {string} text
+    * @param {string|number} text-1
+    * @param {string|number} [text-2]
+    * @param {string|number} ... [text-n]
     */
-    log(string)
+    log(text-1, [text-2], ... [text-n])
     
     /**
     * appends to the innerHTML of the console
-    * @param {string} text
+    * @param {string|number} text-1
+    * @param {string|number} [text-2]
+    * @param {string|number} ... [text-n]
     */
-    append(string)
+    append(text-1, [text-2], ... [text-n])
     
 ## license  
 MIT License  
