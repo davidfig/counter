@@ -5,7 +5,7 @@ let counter, n = 0
 
 function count()
 {
-    counter.log(n, n++)
+    counter.log(n++, n)
 }
 
 window.onload = function ()
@@ -110,10 +110,12 @@ module.exports = class ConsoleCounter
      */
     log()
     {
+        let s = ''
         for (let arg of arguments)
         {
-            this.div.innerHTML = '<div>' + arg + '</div>'
+            s += '<div>' + arg + '</div>'
         }
+        this.div.innerHTML =  s
     }
 
     /**
@@ -124,10 +126,12 @@ module.exports = class ConsoleCounter
      */
     append()
     {
+        let s = this.div.innerHTML
         for (let arg of arguments)
         {
-            this.div.innerHTML += '<div>' + arg + '</div>'
+            s += '<div>' + arg + '</div>'
         }
+        this.div.innerHTML = s
     }
 }
 },{}],4:[function(require,module,exports){
