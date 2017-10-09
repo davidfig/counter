@@ -1,16 +1,16 @@
-# console-counter.js
-In-browser console to watch changeable values like counters or FPS.
+# yy-counter
+In-browser counter to watch changeable values like counters or variables watches
 
 ## Rationale
 While console.log is helpful for debugging, it does not work well for watching values that change quickly, like counters, (x, y) coordinates, or FPS. That's where console-counter comes in. 
 
-console-counter.js quickly and easily creates an in-browser console and attaches it to a corner of the screen.    
+console-counter.js quickly and easily creates an in-browser console and attaches it to a corner of the screen. It also stacks mulitple counters
 
 ## Code Example
 
-    const ConsoleCounter = require('console-counter');
+    const Counter = require('yy-counter');
 
-    const counter = new ConsoleCounter()
+    const counter = new Counter()
 
     let n = 0
     setInterval(() => counter.log(n++), 250)
@@ -20,7 +20,7 @@ https://davidfig.github.io/console-counter/
 
 ## Installation
 
-    npm i console-counter
+    npm i yy-counter
 
 ## API Reference
 
