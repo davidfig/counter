@@ -16,7 +16,7 @@ console-counter.js quickly and easily creates an in-browser console and attaches
     setInterval(() => counter.log(n++), 250)
 
 ## Live Example
-https://davidfig.github.io/console-counter/
+https://davidfig.github.io/counter/
 
 ## Installation
 
