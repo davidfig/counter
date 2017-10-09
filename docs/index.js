@@ -14,11 +14,14 @@ window.onload = function ()
     panel.log('top left panel')
 
     const panel2 = new Panel({ side: 'bottomRight' })
-    panel2.log('bottom right panel', 'With two lines.')
+    panel2.log('bottom right panel', 'With two lines in one log statement.')
 
     counter = new Panel({side: 'bottom left', background: 'red'})
     count()
     setInterval(count, 250)
+
+    const panel3 = new Panel({ side: 'left-bottom', background: 'green' })
+    panel3.log('this is a separate panel that stacks itself')
 
     require('./highlight')();
 };
@@ -40,59 +43,33 @@ module.exports = function highlight()
 // for eslint
 /* globals window, XMLHttpRequest, document */
 },{"highlight.js":5}],3:[function(require,module,exports){
-/**
- * @file console-counter.js
- * @summary In-browser console to watch changeable values like counters or FPS
- * @author David Figatner
- * @license MIT
- * @copyright YOPEY YOPEY LLC 2017
- * {@link https://github.com/davidfig/console-counter}
- */
+// yy-counter
+// In-browser counter to watch changeable values like counters or FPS
+// David Figatner
+// (c) YOPEY YOPEY LLC 2017
+// MIT License
+// https://github.com/davidfig/counter
 
-module.exports = class ConsoleCounter
+module.exports = class Counter
 {
     /**
      * @param {object} [options]
-     * @param {side} [options.side='rightbottom'] side to place the panel (combination of right/left and bottom/top)
-     * @param {string} [options.parent=document.body]
+     * @param {side} [options.side=rightbottom] side to place the panel (combination of right/left and bottom/top)
      * @param {number} [options.padding=7px]
      * @param {string} [options.color=white]
      * @param {string} [options.background=rgba(150,150,150,0.5)]
-     * @param {string} [options.position=fixed]
-     * @param {number} [options.zIndex=1000]
-     * @param {*} {options.xxx} where xxx is a CSS style for the div
+     * @param {*} {options.xxx} where xxx is a CSS style for the div (in javascript format, i.e., 'backgroundColor' instead of 'background-color')
      */
     constructor(options)
     {
         options = options || {}
-        options.side = options.side || 'righbottom'
+        options.side = options.side || 'rightbottom'
         options.side.toLowerCase()
         options.padding = options.padding || '7px'
         options.color = options.color || 'white'
         options.background = options.background || 'rgba(150,150,150,0.5)'
-        options.parent = options.parent || document.body
-        options.zIndex = options.zIndex || 1000
-        options.position = options.position || 'fixed'
         this.div = document.createElement('div')
-        options.parent.appendChild(this.div)
-        this.div.style.position = options.position
-        this.div.style.overflow = 'hidden'
-        if (options.side.indexOf('left') !== -1)
-        {
-            this.div.style.left = 0
-        }
-        else
-        {
-            this.div.style.right = 0
-        }
-        if (options.side.indexOf('top') !== -1)
-        {
-            this.div.style.top = 0
-        }
-        else
-        {
-            this.div.style.bottom = 0
-        }
+        this.findParent(options).appendChild(this.div)
         for (let style in options)
         {
             if (style !== 'parent' && style !== 'side')
@@ -100,6 +77,54 @@ module.exports = class ConsoleCounter
                 this.div.style[style] = options[style]
             }
         }
+    }
+
+    /**
+     * find parent div
+     * @private
+     * @return {HTMLElement}
+     */
+    findParent(options)
+    {
+        const styles = []
+        let name = 'yy-counter-'
+        if (options.side.indexOf('left') !== -1)
+        {
+            name += 'left-'
+            styles['left'] = 0
+        }
+        else
+        {
+            name += 'right-'
+            styles['right'] = 0
+        }
+        if (options.side.indexOf('top') !== -1)
+        {
+            name += 'top'
+            styles['top'] = 0
+        }
+        else
+        {
+            name += 'bottom'
+            styles['bottom'] = 0
+        }
+        const test = document.getElementById(name)
+        if (test)
+        {
+            return test
+        }
+        const container = document.createElement('div')
+        container.id = name
+        container.style.position = options.position
+        container.style.overflow = 'hidden'
+        container.style.position = 'fixed'
+        container.style.zIndex = 10000
+        for (let style in styles)
+        {
+            container.style[style] = styles[style]
+        }
+        document.body.appendChild(container)
+        return container
     }
 
     /**
