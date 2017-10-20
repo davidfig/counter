@@ -9,11 +9,11 @@ module.exports = class Counter
 {
     /**
      * @param {object} [options]
-     * @param {side} [options.side=rightbottom] side to place the panel (combination of right/left and bottom/top)
+     * @param {string} [options.side=rightbottom] side to place the panel (combination of right/left and bottom/top)
      * @param {number} [options.padding=7px]
      * @param {string} [options.color=white]
      * @param {string} [options.background=rgba(0,0,0,0.5)]
-     * @param {*} {options.xxx} where xxx is a CSS style for the div (in javascript format, i.e., 'backgroundColor' instead of 'background-color')
+     * @param {*} {options.xxx} where xxx is a CSS style for the div
      */
     constructor(options)
     {
@@ -35,8 +35,8 @@ module.exports = class Counter
     }
 
     /**
-     * find parent div
-     * @private
+     * find the parent div for one of the corners
+     * @param {string} [options.side] side to place the panel (combination of right/left and bottom/top)
      * @return {HTMLElement}
      */
     static findParent(side)

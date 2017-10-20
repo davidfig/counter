@@ -10,7 +10,7 @@ console-counter.js quickly and easily creates an in-browser console and attaches
 
     const Counter = require('yy-counter')
 
-    const counter = new Counter()
+    const counter = new Counter({side: 'top-left'})
 
     let n = 0
     setInterval(() => counter.log(n++), 250)
@@ -23,33 +23,6 @@ https://davidfig.github.io/counter/
     npm i yy-counter
 
 ## API Reference
-```
-    /**
-     * @param {object} [options]
-     * @param {side} [options.side=rightbottom] side to place the panel (combination of right/left and bottom/top)
-     * @param {number} [options.padding=7px]
-     * @param {string} [options.color=white]
-     * @param {string} [options.background=rgba(150,150,150,0.5)]
-     * @param {*} {options.xxx} where xxx is a CSS style for the div (in javascript format, i.e., 'backgroundColor' instead of 'background-color')
-     */
-    constructor(options)
-
-    /**
-     * replaces the innerHTML of the console
-     * @param {string|number} text1
-     * @param {string|number} [text2]
-     * @param {string|number} [...textn] any number of arguments
-     */
-    log()
-
-    /**
-     * appends to the innerHTML of the console
-     * @param {string|number} text1
-     * @param {string|number} [text2]
-     * @param {string|number} [...textn] any number of arguments
-     */
-    append()
-```
 ## class ConsoleCounter
     /**
      * @param {object} [options]

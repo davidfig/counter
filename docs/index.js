@@ -1,48 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-const Panel = require('..');
-
-let counter, n = 0
-
-function count()
-{
-    counter.log(n++, n)
-}
-
-window.onload = function ()
-{
-    const panel = new Panel({ side: 'top left' })
-    panel.log('top left panel')
-
-    const panel2 = new Panel({ side: 'bottomRight' })
-    panel2.log('bottom right panel', 'With two lines in one log statement.')
-
-    counter = new Panel({side: 'bottom left', background: 'red'})
-    count()
-    setInterval(count, 250)
-
-    const panel3 = new Panel({ side: 'left-bottom', background: 'green' })
-    panel3.log('this is a separate panel that stacks itself')
-
-    require('./highlight')();
-};
-},{"..":3,"./highlight":2}],2:[function(require,module,exports){
-// shows the code in the demo
-module.exports = function highlight()
-{
-    var client = new XMLHttpRequest();
-    client.open('GET', 'code.js');
-    client.onreadystatechange = function()
-    {
-        var code = document.getElementById('code');
-        code.innerHTML = client.responseText;
-        require('highlight.js').highlightBlock(code);
-    };
-    client.send();
-};
-
-// for eslint
-/* globals window, XMLHttpRequest, document */
-},{"highlight.js":5}],3:[function(require,module,exports){
 // yy-counter
 // In-browser counter to watch changeable values like counters or FPS
 // David Figatner
@@ -54,11 +10,11 @@ module.exports = class Counter
 {
     /**
      * @param {object} [options]
-     * @param {side} [options.side=rightbottom] side to place the panel (combination of right/left and bottom/top)
+     * @param {string} [options.side=rightbottom] side to place the panel (combination of right/left and bottom/top)
      * @param {number} [options.padding=7px]
      * @param {string} [options.color=white]
-     * @param {string} [options.background=rgba(150,150,150,0.5)]
-     * @param {*} {options.xxx} where xxx is a CSS style for the div (in javascript format, i.e., 'backgroundColor' instead of 'background-color')
+     * @param {string} [options.background=rgba(0,0,0,0.5)]
+     * @param {*} {options.xxx} where xxx is a CSS style for the div
      */
     constructor(options)
     {
@@ -67,9 +23,9 @@ module.exports = class Counter
         options.side.toLowerCase()
         options.padding = options.padding || '7px'
         options.color = options.color || 'white'
-        options.background = options.background || 'rgba(150,150,150,0.5)'
+        options.background = options.background || 'rgba(0,0,0,0.5)'
         this.div = document.createElement('div')
-        this.findParent(options).appendChild(this.div)
+        Counter.findParent(options.side).appendChild(this.div)
         for (let style in options)
         {
             if (style !== 'parent' && style !== 'side')
@@ -80,15 +36,15 @@ module.exports = class Counter
     }
 
     /**
-     * find parent div
-     * @private
+     * find the parent div for one of the corners
+     * @param {string} [options.side] side to place the panel (combination of right/left and bottom/top)
      * @return {HTMLElement}
      */
-    findParent(options)
+    static findParent(side)
     {
         const styles = []
         let name = 'yy-counter-'
-        if (options.side.indexOf('left') !== -1)
+        if (side.indexOf('left') !== -1)
         {
             name += 'left-'
             styles['left'] = 0
@@ -98,7 +54,7 @@ module.exports = class Counter
             name += 'right-'
             styles['right'] = 0
         }
-        if (options.side.indexOf('top') !== -1)
+        if (side.indexOf('top') !== -1)
         {
             name += 'top'
             styles['top'] = 0
@@ -115,7 +71,6 @@ module.exports = class Counter
         }
         const container = document.createElement('div')
         container.id = name
-        container.style.position = options.position
         container.style.overflow = 'hidden'
         container.style.position = 'fixed'
         container.style.zIndex = 10000
@@ -159,7 +114,51 @@ module.exports = class Counter
         this.div.innerHTML = s
     }
 }
-},{}],4:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
+const Panel = require('..')
+
+let counter, n = 0
+
+function count()
+{
+    counter.log(n++, n)
+}
+
+window.onload = function ()
+{
+    const panel = new Panel({ side: 'top left' })
+    panel.log('top left panel')
+
+    const panel2 = new Panel({ side: 'bottomRight' })
+    panel2.log('bottom right panel', 'With two lines in one log statement.')
+
+    counter = new Panel({side: 'bottom left', background: 'red'})
+    count()
+    setInterval(count, 250)
+
+    const panel3 = new Panel({ side: 'left-bottom', background: 'green' })
+    panel3.log('this is a separate panel that stacks itself')
+
+    require('./highlight')();
+};
+},{"..":1,"./highlight":3}],3:[function(require,module,exports){
+// shows the code in the demo
+module.exports = function highlight()
+{
+    var client = new XMLHttpRequest();
+    client.open('GET', 'code.js');
+    client.onreadystatechange = function()
+    {
+        var code = document.getElementById('code');
+        code.innerHTML = client.responseText;
+        require('highlight.js').highlightBlock(code);
+    };
+    client.send();
+};
+
+// for eslint
+/* globals window, XMLHttpRequest, document */
+},{"highlight.js":5}],4:[function(require,module,exports){
 /*
 Syntax highlighting with language autodetection.
 https://highlightjs.org/
@@ -16991,4 +16990,4 @@ module.exports = function(hljs) {
     ]
   };
 };
-},{}]},{},[1]);
+},{}]},{},[2]);
