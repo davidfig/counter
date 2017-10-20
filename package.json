@@ -1,8 +1,8 @@
 {
   "name": "yy-counter",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "In-browser console to watch changeable values like counters or FPS",
-  "main": "index.js",
+  "main": "counter.js",
   "scripts": {
     "test": "budo docs/code.js:index.js --dir docs --live",
     "build": "browserify docs/code.js -o docs/index.js",

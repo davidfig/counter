@@ -12,7 +12,7 @@ module.exports = class Counter
      * @param {side} [options.side=rightbottom] side to place the panel (combination of right/left and bottom/top)
      * @param {number} [options.padding=7px]
      * @param {string} [options.color=white]
-     * @param {string} [options.background=rgba(150,150,150,0.5)]
+     * @param {string} [options.background=rgba(0,0,0,0.5)]
      * @param {*} {options.xxx} where xxx is a CSS style for the div (in javascript format, i.e., 'backgroundColor' instead of 'background-color')
      */
     constructor(options)
@@ -22,9 +22,9 @@ module.exports = class Counter
         options.side.toLowerCase()
         options.padding = options.padding || '7px'
         options.color = options.color || 'white'
-        options.background = options.background || 'rgba(150,150,150,0.5)'
+        options.background = options.background || 'rgba(0,0,0,0.5)'
         this.div = document.createElement('div')
-        this.findParent(options).appendChild(this.div)
+        Counter.findParent(options.side).appendChild(this.div)
         for (let style in options)
         {
             if (style !== 'parent' && style !== 'side')
@@ -39,11 +39,11 @@ module.exports = class Counter
      * @private
      * @return {HTMLElement}
      */
-    findParent(options)
+    static findParent(side)
     {
         const styles = []
         let name = 'yy-counter-'
-        if (options.side.indexOf('left') !== -1)
+        if (side.indexOf('left') !== -1)
         {
             name += 'left-'
             styles['left'] = 0
@@ -53,7 +53,7 @@ module.exports = class Counter
             name += 'right-'
             styles['right'] = 0
         }
-        if (options.side.indexOf('top') !== -1)
+        if (side.indexOf('top') !== -1)
         {
             name += 'top'
             styles['top'] = 0
@@ -70,7 +70,6 @@ module.exports = class Counter
         }
         const container = document.createElement('div')
         container.id = name
-        container.style.position = options.position
         container.style.overflow = 'hidden'
         container.style.position = 'fixed'
         container.style.zIndex = 10000

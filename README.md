@@ -8,7 +8,7 @@ console-counter.js quickly and easily creates an in-browser console and attaches
 
 ## Code Example
 
-    const Counter = require('yy-counter');
+    const Counter = require('yy-counter')
 
     const counter = new Counter()
 

@@ -1,4 +1,4 @@
-const Panel = require('..');
+const Panel = require('..')
 
 let counter, n = 0
 
