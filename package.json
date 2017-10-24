@@ -1,6 +1,6 @@
 {
   "name": "yy-counter",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "In-browser console to watch changeable values like counters or FPS",
   "main": "counter.js",
   "scripts": {
