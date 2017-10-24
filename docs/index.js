@@ -74,6 +74,8 @@ module.exports = class Counter
         container.style.overflow = 'hidden'
         container.style.position = 'fixed'
         container.style.zIndex = 10000
+        container.style.pointerEvents = 'none'
+        container.style.userSelect = 'none'
         for (let style in styles)
         {
             container.style[style] = styles[style]
